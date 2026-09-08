@@ -1,0 +1,37 @@
+# Local data and generated datasets
+data/
+dataset/*
+!dataset/.gitkeep
+
+# Model artifacts and experiment outputs
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.h5
+*.keras
+*.safetensors
+saved_models/
+checkpoints/
+artifacts/
+wandb/
+mlruns/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Python, notebooks, editors, and build caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+.idea/
+.vscode/
+dist/
+build/

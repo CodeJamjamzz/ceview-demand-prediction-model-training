@@ -1,0 +1,10 @@
+{
+  "experiment_id": "",
+  "status": "pending",
+  "decision": "Baseline and candidate evaluation pending.",
+  "model_type": "12-week multi-horizon market-demand forecaster",
+  "metrics": {},
+  "comparison_to_previous_best": "",
+  "trained_on": "",
+  "next_action": "Export versioned historical signals and evaluate required baselines on chronological rolling windows."
+}

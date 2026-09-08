@@ -1,0 +1,17 @@
+{
+  "dataset_version": "demand-v1",
+  "sources": [
+    "data/trends_weekly_japan_by_category.csv",
+    "data/trends_weekly_korea_by_category.csv",
+    "data/USA_trends_weekly_by_category.csv"
+  ],
+  "metadata": "data/collection_metadata.json",
+  "economics": null,
+  "calendar": {
+    "date_label": "start",
+    "weekday": 6,
+    "timezone": "UTC",
+    "availability_lag_days": 0
+  },
+  "as_of": "2026-09-08T00:00:00Z"
+}

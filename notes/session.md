@@ -1,0 +1,7 @@
+# Session notes
+
+- 2026-09-08: On the user's renewed request to generate the dataset, created `data/processed/demand-v2-provisional` using the existing core transformations and documented calendar assumptions. Exported 8,778 weekly rows plus 4,368 training, 651 validation, and 651 test windows. File roundtrip, shape, chronology, exclusion, and transformation-parity checks passed; raw source checksums remained unchanged. Collection metadata remains unverified and diagnostic review remains pending; no approval was fabricated. Reproduction script: `artifacts/build_provisional_dataset.py`. No model training or production integration occurred.
+
+- 2026-09-04: Initialized a model-agnostic AI engineering scaffold.
+- 2026-09-04: Incorporated Module 2 context. The project forecasts 12 weeks of Cebu travel-interest for South Korea, Japan, and the United States. Google Trends is the initial target proxy. No source application code or historical export is present in this workspace.
+- 2026-09-08: Implemented category preprocessing, 2020-2022 interval exclusion, point-in-time economic joins, and a source/configuration-bound diagnostic review gate. Three category CSVs are now present. Generated the provisional coastal-island 2023 diagnostic at `data/analysis/demand-v1/report.md`; all three countries have 53 observed positions under the unverified Sunday-start UTC calendar. Missing collection metadata blocks approval and dataset generation. No training or actual-data arrays were produced. This directory has no local Git repository; no commits were made.
