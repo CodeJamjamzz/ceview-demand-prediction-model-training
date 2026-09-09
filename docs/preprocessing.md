@@ -68,3 +68,5 @@ Core ordered features are trend/100, annual sine, and annual cosine. Calendar en
 `transform_history` accepts exactly 52 validated, ordered rows for a supported market/category and optional saved economic scalers. The same function builds training histories. At inference, run the same source/calendar validation and point-in-time joins first, then select the final 52 available rows. The function does not need targets. Inverse target scaling is multiplication by 100; display clamping belongs to serving.
 
 Generated files include the clean Parquet table, quality and window-exclusion reports, per-variant manifests and NPZ arrays, and versioned configuration/schema/scaler/vocabulary/source metadata. All remain ignored by Git. No model weights, experiment scores, or champion decisions are generated.
+
+Prepared outputs now live in `dataset/<dataset_version>/`; raw inputs and analysis remain in `data/`, and saved preprocessing metadata remains in `artifacts/<dataset_version>/`. See the [dataset information](../dataset/README.md) for the current CSV, NPZ partitions, and relocation history.

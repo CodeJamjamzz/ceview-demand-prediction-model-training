@@ -8,3 +8,5 @@ Implement a compact, direct multi-horizon forecasting model only after the exter
 - Evaluation without parameter updates.
 - Artifact loading and 12-week inference with preprocessing parity.
 - Serialization and restoration.
+
+The initial shared layers now live in [components.py](components.py), raw-index metrics in [metrics.py](metrics.py), and protocol/file verification in [experiment.py](experiment.py). They use [forecasting-v1](../experiments/forecasting-v1.json). A/B/C models are assembled in [architectures.py](architectures.py), and the external runner lives in [training/](../training/README.md); see the [protocol documentation](../docs/forecasting_protocol.md).

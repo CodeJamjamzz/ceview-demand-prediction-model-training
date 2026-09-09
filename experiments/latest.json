@@ -6,5 +6,5 @@
   "metrics": {},
   "comparison_to_previous_best": "",
   "trained_on": "",
-  "next_action": "Export versioned historical signals and evaluate required baselines on chronological rolling windows."
+  "next_action": "Colab/W&B workflow and A/B/C models are implemented. Add the W&B key to .env, close dataset review requirements, and configure Colab before real-data baseline/training/final-test execution."
 }

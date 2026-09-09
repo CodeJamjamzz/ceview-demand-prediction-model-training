@@ -1,0 +1,258 @@
+{
+  "protocol_version": "forecasting-v1",
+  "frozen_on": "2026-09-10",
+  "scope": "Initial A/B/C comparison; frozen provisional inputs, not data approval",
+  "dataset": {
+    "version": "demand-v2-provisional",
+    "path": "dataset/demand-v2-provisional",
+    "export_fingerprint": "297c228ae6e97a2a8a832345776ac98a435b2f1864830d9ab642e507e08727a8",
+    "status": "provisional",
+    "diagnostic_approval": "pending",
+    "lookback": 52,
+    "horizon": 12,
+    "features": [
+      "trend_scaled",
+      "week_sin",
+      "week_cos"
+    ],
+    "numeric_dtype": "float32",
+    "identity_dtype": "int64",
+    "target_inverse_scale": 100,
+    "vocabulary": {
+      "market": [
+        "JP",
+        "KR",
+        "US"
+      ],
+      "category": [
+        "accommodation_staycation",
+        "adventure_nature",
+        "coastal_island",
+        "culinary_gastronomy",
+        "cultural_heritage",
+        "theme_parks_entertainment",
+        "urban_city"
+      ]
+    },
+    "vocabulary_evidence": "Exporter imports and all train/validation identity arrays matched window_manifest.csv; original saved metadata inaccessible; test arrays not opened",
+    "original_metadata_verified": false,
+    "counts": {
+      "train": 4368,
+      "validation": 651,
+      "test": 651
+    },
+    "weekly_rows": 8778,
+    "splits": {
+      "train": {
+        "start": "2014-12-28",
+        "end": "2024-05-19"
+      },
+      "validation": {
+        "start": "2024-05-26",
+        "end": "2025-03-09"
+      },
+      "test": {
+        "start": "2025-03-16",
+        "end": "2025-12-28"
+      }
+    },
+    "calendar": {
+      "date_label": "start",
+      "weekday": 6,
+      "timezone": "UTC",
+      "availability_lag_days": 0
+    },
+    "excluded_interval": [
+      "2020-01-01",
+      "2023-01-01"
+    ],
+    "missingness": "No imputation; retain only complete consecutive histories and targets",
+    "unverified": [
+      "exact queries and category aggregation",
+      "category definition version",
+      "collection dates and historical availability",
+      "weekly boundary semantics",
+      "cross-country normalization compatibility"
+    ],
+    "files_sha256": {
+      "dataset/demand-v2-provisional/audit.json": "ba550911644f62397d03abb89277db863fa6f690222dca1bbdd71415a35799f4",
+      "dataset/demand-v2-provisional/core/excluded_counts.csv": "8a39dba6a53000308994d9bbd8c2daa6c89b01402f85fe1509614a15a8e450bf",
+      "dataset/demand-v2-provisional/core/excluded_windows.csv": "46a1f7fc4f00ab0a867fdd6527c96c05b3f652cfb73d14950d0944fdf7306b20",
+      "dataset/demand-v2-provisional/core/retained_counts.csv": "625d04a7795dfc396b140c2f34c3edb7f324124f1ff85346796a6397021ac343",
+      "dataset/demand-v2-provisional/core/test.npz": "b24b54ba04d6b95f713005fca04e0165fcd9f49831f856fee9c2b6c777b318e0",
+      "dataset/demand-v2-provisional/core/train.npz": "6976ed2b3ff923f4e48a816b3812c1a3ec456a78080174b5fcf775f798613424",
+      "dataset/demand-v2-provisional/core/validation.npz": "926cdf695984c5e390b8a3d97bf817eb65da2d96fe6ff12c3d56cf4864da7b14",
+      "dataset/demand-v2-provisional/core/window_manifest.csv": "20a67e14718413365a5350fccdc21249964c4a5e04607851929ba2456a9868ce",
+      "dataset/demand-v2-provisional/dataset_status.json": "d63f14355b15045fa5926335a33ef0d93f979848511f5f732570a8fb8aa04403",
+      "dataset/demand-v2-provisional/quality_report.csv": "f479b05aa94f257b7351a60437ad452bc58123def7ddb3104eda722a0f34ab68",
+      "dataset/demand-v2-provisional/README.md": "3634a0cf17fb6853f904935351809ca911d01fdc6742e5cf8d0a32cb59b87304",
+      "dataset/demand-v2-provisional/weekly_series.csv": "797bc406a3533d8ca56b5ff248b254580144f4af052348273b6be9d13a68bae5",
+      "dataset/demand-v2-provisional/weekly_series.parquet": "1f7b7ea6326999007777ef2453eb97d88488d7527abe233cce10ad0ead06f9b7",
+      "data/trends_weekly_japan_by_category.csv": "5ec03f0f4fff41714eeee5885399373bbe35318811674fb5f36cb168b9523442",
+      "data/trends_weekly_korea_by_category.csv": "38a30926b2ad05033579c8e532a3742cd961e6ab8499404072c1fcaf05b2127c",
+      "data/USA_trends_weekly_by_category.csv": "0e40be97a8e6899cbd5b71c0f773850712887671f226316f8c83a44038a92536",
+      "artifacts/build_provisional_dataset.py": "8740491e70271064192251acc4cda8c30a536b02ac92a593ebf3d53d6c7d54e5"
+    }
+  },
+  "architecture": {
+    "shared": {
+      "identity_embedding_dim": 4,
+      "width": 64,
+      "head_hidden": 32,
+      "dropout": 0.1,
+      "layer_norm_eps": 1e-05,
+      "attention_heads": 2,
+      "feedforward_hidden": 128,
+      "pooling": "mean_over_time",
+      "head_activation": "relu",
+      "feedforward_activation": "gelu_exact",
+      "output_activation": "linear",
+      "bias": true
+    },
+    "A": {
+      "name": "bilstm",
+      "recurrent_layers": 1,
+      "hidden_per_direction": 32,
+      "bidirectional": true,
+      "recurrent_dropout": 0.0,
+      "sequence_output": "layer_norm_then_dropout"
+    },
+    "B": {
+      "name": "transformer",
+      "projection": [
+        11,
+        64
+      ],
+      "learned_positions": 52,
+      "encoder_blocks": 1,
+      "final_layer_norm": true
+    },
+    "C": {
+      "name": "bilstm_transformer",
+      "recurrent_layers": 1,
+      "hidden_per_direction": 32,
+      "bidirectional": true,
+      "recurrent_dropout": 0.0,
+      "learned_positions": 52,
+      "encoder_blocks": 1,
+      "final_layer_norm": true
+    },
+    "causal_mask": false,
+    "teacher_forcing": false,
+    "initialization": "Pinned PyTorch module defaults; no pretrained weights; reset seed before construction"
+  },
+  "training": {
+    "seeds": [
+      42,
+      123,
+      2026
+    ],
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "amsgrad": false,
+    "weight_decay": 0.0001,
+    "weight_decay_exclusions": [
+      "all_biases",
+      "all_LayerNorm_parameters"
+    ],
+    "loss": "MAE_mean_examples_and_12_horizons_scaled_targets",
+    "batch_size": 32,
+    "max_epochs": 100,
+    "gradient_clip_norm": 1.0,
+    "gradient_clip_norm_type": 2.0,
+    "scheduler": null,
+    "mixed_precision": false,
+    "early_stopping": {
+      "monitor": "validation_mae_scaled",
+      "direction": "min",
+      "patience": 12,
+      "min_delta": 0.0001,
+      "reset": "current < last_significant_best - min_delta"
+    },
+    "checkpoint": "Save every strictly lower validation MAE, keep earliest exact tie, restore lowest before reporting",
+    "loader": {
+      "shuffle_train_windows": true,
+      "shuffle_validation": false,
+      "shuffle_test": false,
+      "drop_last": false,
+      "num_workers": 0,
+      "seed": "current_run_seed",
+      "split_policy": "existing_partitions_unchanged"
+    },
+    "epoch_aggregation": "Sum absolute errors divided by total examples times 12, not unweighted batch means",
+    "randomness": {
+      "seed_python_numpy_torch_loader": true,
+      "deterministic_algorithms": true,
+      "cudnn_benchmark": false,
+      "allow_tf32": false,
+      "cublas_workspace_config": ":4096:8"
+    }
+  },
+  "metrics": {
+    "version": "raw-index-v1",
+    "inputs": "scaled [examples,12] targets and raw model predictions",
+    "prediction_treatment": "multiply_by_100_no_clamping",
+    "mae": "mean(abs(predicted-actual))",
+    "rmse": "sqrt(mean((predicted-actual)^2))",
+    "smape_percent": "mean(200*abs(predicted-actual)/(abs(actual)+abs(predicted))); zero/zero contributes 0",
+    "mape_min_abs_target_index_points": 1.0,
+    "mape_percent": "mean(100*abs(predicted-actual)/abs(actual)) over abs(actual)>=1; null if none",
+    "mape_coverage": "included_values/total_values; always report count and coverage",
+    "invalid_values": "Reject empty, nonfinite, mismatched arrays or targets outside [0,1]; never silently drop",
+    "aggregation": "overall pools all example-horizon values; per_horizon reports 12 scores; mean_of_horizon_metrics reports arithmetic mean (RMSE differs from pooled RMSE)",
+    "groups": [
+      "market",
+      "category",
+      "market/category"
+    ],
+    "group_weighting": "Equal weight per example-horizon inside each group; no averaging group scores for overall",
+    "demand_means": "Average each example over weeks 1-4 or 1-12 first, then calculate metrics; same MAPE threshold on averaged targets",
+    "seed_summary": "Arithmetic mean and sample standard deviation (ddof=1) over all three complete seeds",
+    "deferred": [
+      "directional_accuracy",
+      "category_alert_precision_recall",
+      "market_ranking",
+      "formal_significance_tests"
+    ]
+  },
+  "selection": {
+    "partition": "validation_only",
+    "primary": "mean_validation_MAE_index_points_across_three_seeds",
+    "architecture_ties": [
+      "lower_mean_smape",
+      "fewer_parameters",
+      "A_then_B_then_C"
+    ],
+    "eligibility": "All three seeds complete; mean validation MAE strictly below best required baseline; otherwise no neural champion",
+    "final_seed": 42,
+    "final_checkpoint": "Lowest validation MAE checkpoint of seed 42 for selected architecture",
+    "test_policy": "Evaluate selected artifact once after recording decision; no seed or configuration selection on test",
+    "baseline_names": [
+      "last_value",
+      "moving_average_7",
+      "seasonal_naive_52"
+    ],
+    "initial_tuning_budget": "One frozen configuration per architecture, three seeds each; no search"
+  },
+  "environment": {
+    "framework": "torch==2.11.0",
+    "numpy": "2.2.1",
+    "pandas": "2.2.3",
+    "pyarrow": "23.0.1",
+    "local_validation": {
+      "python": "3.13.6",
+      "torch_build": "2.11.0+cpu",
+      "device": "cpu"
+    },
+    "external": "Google Colab GPU",
+    "tracker": "JSON/CSV",
+    "artifact_destination": "Google Drive",
+    "external_runtime_status": "Not provisioned; record exact Python/CUDA/cuDNN/GPU/OS and use same environment for all comparison runs"
+  },
+  "protocol_sha256": "49497a7743bc1ba23ad422c64253de6e1b279f790b1f6682b8b5ac49dd49166f"
+}
