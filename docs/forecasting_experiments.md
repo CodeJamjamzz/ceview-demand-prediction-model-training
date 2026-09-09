@@ -2,7 +2,7 @@
 
 Planned work: September 9, 2026.
 
-Status: architecture specifications and experiment notes only. No forecasting models have been implemented or trained yet.
+Status: the frozen protocol, shared components, full A/B/C models, and Colab/W&B training workflow are implemented. Real-data training and evaluation remain pending. See the [frozen protocol and metric definitions](forecasting_protocol.md).
 
 ## Research objective
 
@@ -12,7 +12,7 @@ All layers and embeddings will train from scratch. A more complex model is not a
 
 ## Dataset for the first experiments
 
-Use [demand-v2-provisional](../data/processed/demand-v2-provisional/README.md).
+Use [demand-v2-provisional](../dataset/demand-v2-provisional/README.md).
 
 | Item | Current value |
 | --- | --- |
@@ -142,7 +142,7 @@ Residual additions preserve a direct path through each sublayer. The attention a
 
 ## Shared initial training settings
 
-These settings are proposed defaults, not validated optimum values.
+These settings are frozen initial defaults in [forecasting-v1](../experiments/forecasting-v1.json), not validated optimum values.
 
 | Setting | Value |
 | --- | --- |
@@ -165,12 +165,12 @@ AdamW decouples weight decay from the adaptive update. [Decoupled Weight Decay R
 
 Use the same data loader policy, features, stopping rules, and tuning budget for all models. Seed language, numerical, framework, and loader randomness where supported. Record software versions and hardware; seeds do not guarantee identical behavior across environments.
 
-Run heavy training in the selected external environment, not in the IDE. Framework, external environment, tracker, and artifact storage still need selection. Notebooks should orchestrate repository functions rather than duplicate model or preprocessing logic.
+The user selected Weights & Biases tracking on September 10, 2026, alongside PyTorch, Google Colab GPU, and Google Drive artifacts. The [Colab workflow](../training/README.md) uses forecasting-v2-wandb; numerical settings remain unchanged. See [selected stack and setup requirements](training.md#selected-experiment-stack). Selection is complete; provisioning and training readiness remain pending. Run heavy training externally, not in the IDE. Notebooks should orchestrate repository functions rather than duplicate model or preprocessing logic.
 
 ## Baselines, evaluation, and model selection
 
 - Run last-value, seven-week moving-average, and 52-week seasonal-naive baselines on the same eligible forecast origins before interpreting neural model results.
-- The initial neural comparison consists of three architectures x three seeds, or nine runs.
+- The initial neural comparison consists of three architectures x three seeds, or nine runs. Run them across separate Colab sessions: set EXPERIMENT to "A" first, then "B", then "C". The notebook trains only the selected architecture and postpones selection/testing until all nine saved runs exist.
 - Report validation MAE, RMSE, and sMAPE per horizon, country, and category, plus the overall 12-horizon mean.
 - Also report error in the mean predicted demand over weeks 1-4 and weeks 1-12. Error of an average is different from the average of weekly errors; label them separately.
 - Document zero and near-zero target handling before calculating MAPE. Report the fraction of values included and never silently remove difficult observations. MAPE <= 15% is a research target, not a guaranteed result.
@@ -196,15 +196,15 @@ The previously discussed width changes, 32 versus 64 BiLSTM units per direction 
 
 ## Tomorrow's checklist
 
-- [ ] Review dataset assumptions and record outstanding provenance limitations.
-- [ ] Select the framework, external compute environment, tracker, and artifact destination.
-- [ ] Freeze the dataset version, metric definitions, and experiment configuration.
-- [ ] Implement the shared embeddings, prediction head, and pre-normalization Transformer block.
-- [ ] Implement Experiments A, B, and C without changing their shared inputs and outputs.
-- [ ] Check input/output shapes, finite gradients, and a small synthetic training step locally.
+- [x] Review dataset assumptions and record outstanding provenance limitations. See the [recorded review](data.md#dataset-assumptions-and-provenance-review); verification and diagnostic approval remain pending.
+- [x] Select the framework, external compute environment, tracker, and artifact destination. User agreed to PyTorch, Colab GPU, W&B tracking, and Google Drive; [operational setup remains pending](training.md#selected-experiment-stack).
+- [x] Freeze the dataset version, metric definitions, and experiment configuration. See [forecasting-v1](forecasting_protocol.md); this freezes provisional files without approving provenance.
+- [x] Implement the shared embeddings, prediction head, and pre-normalization Transformer block. See [components](../model/components.py); 18 synthetic checks passed.
+- [x] Implement Experiments A, B, and C without changing their shared inputs and outputs. See model/architectures.py.
+- [x] Check input/output shapes, finite gradients, and small synthetic training steps for all three architectures locally.
 - [ ] Verify that targets never enter encoder inputs and that training/inference feature order matches.
-- [ ] Run the three simple forecasting baselines.
-- [ ] Execute the nine initial neural runs externally, saving best validation checkpoints.
+- [ ] Run the three simple forecasting baselines on the approved real dataset. Implemented and synthetically checked in training/engine.py.
+- [ ] Execute the nine initial neural runs externally, saving best validation checkpoints. The Colab notebook and W&B logging are ready; dataset review and live setup remain pending.
 - [ ] Compare validation results and per-country/category errors before optional follow-ups.
 - [ ] Record the selected configuration and rationale before opening held-out test results.
 - [ ] Keep weights, datasets, and tracker exports outside Git; record lightweight results in `experiments/`.

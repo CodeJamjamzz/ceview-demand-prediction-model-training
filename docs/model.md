@@ -29,7 +29,7 @@ If the required historical window, feature schema, or compatible artifact is una
 
 ## Candidate architecture and non-goals
 
-Start with one compact global GRU or LSTM across all three markets: one recurrent layer with 32 to 64 hidden units, a small dense head, and direct 12-value multi-horizon output. The architecture remains a candidate, not a chosen champion, until it beats the required baselines on unseen rolling test periods.
+The initial comparison uses compact global BiLSTM-only, Transformer-only, and BiLSTM + Transformer models across all 21 series. Follow the shared architecture and three-seed specification in [forecasting experiments](forecasting_experiments.md). Compare against the three required baselines using validation only; no architecture is a champion yet. GRU, TCN, and XGBoost forecasting candidates require separate later experiments. Evaluate the selected artifact once on the held-out test partition.
 
 Do not train a large network per market. Do not use historical Groq or Gemini forecasts as labels. Do not replace the separate economic-viability score, which uses GDP, forex, flights, and distance.
 

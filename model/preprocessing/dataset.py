@@ -157,7 +157,7 @@ def build(weekly, audit, coverage, config, root):
                 raise ValueError("Core has an empty partition after filtering; more eligible history is required")
             audit["economic_status"] = "Insufficient windows; empty partitions are retained and not training-ready"
     version = config["dataset_version"]
-    destination, artifacts = root / "data/processed" / version, root / "artifacts" / version
+    destination, artifacts = root / "dataset" / version, root / "artifacts" / version
     if destination.exists() or artifacts.exists():
         raise ValueError("Dataset or artifact version already exists")
     digest, provenance = fingerprint(config, root)

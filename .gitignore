@@ -2,6 +2,7 @@
 data/
 dataset/*
 !dataset/.gitkeep
+!dataset/README.md
 
 # Model artifacts and experiment outputs
 *.pt
