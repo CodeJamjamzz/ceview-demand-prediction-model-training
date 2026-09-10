@@ -1,0 +1,4 @@
+# Preserve checksum-locked training inputs across Windows and Colab checkouts.
+data/** -text whitespace=cr-at-eol
+dataset/demand-v2-provisional/** -text whitespace=cr-at-eol
+artifacts/** -text whitespace=cr-at-eol

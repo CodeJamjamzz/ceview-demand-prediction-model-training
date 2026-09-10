@@ -1,0 +1,16 @@
+{
+  "market": [
+    "JP",
+    "KR",
+    "US"
+  ],
+  "category": [
+    "accommodation_staycation",
+    "adventure_nature",
+    "coastal_island",
+    "culinary_gastronomy",
+    "cultural_heritage",
+    "theme_parks_entertainment",
+    "urban_city"
+  ]
+}

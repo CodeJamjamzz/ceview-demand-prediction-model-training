@@ -1,0 +1,11 @@
+{
+  "core": [
+    "trend_scaled",
+    "week_sin",
+    "week_cos"
+  ],
+  "dtype": "float32",
+  "target_scale": "index / 100",
+  "target_inverse": "prediction * 100",
+  "calendar_encoding": "sin/cos of 2*pi*(ISO_week-1)/weeks_in_ISO_year"
+}
