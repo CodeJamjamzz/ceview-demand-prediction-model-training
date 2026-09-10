@@ -1,0 +1,82 @@
+{
+  "dataset_version": "demand-v2-provisional",
+  "status": "provisional",
+  "diagnostic_approval": "pending",
+  "purpose": "User-requested dataset assembly with documented collection assumptions",
+  "confirmed_by_user": {
+    "source": "Google Trends",
+    "search_type": "Web Search",
+    "subject": "tourism destinations",
+    "same_category_filter": true
+  },
+  "unverified": [
+    "exact queries and category aggregation",
+    "category definition version",
+    "collection dates and historical availability",
+    "weekly boundary semantics",
+    "cross-country normalization compatibility"
+  ],
+  "calendar_assumptions": {
+    "date_label": "start",
+    "weekday": 6,
+    "timezone": "UTC",
+    "availability_lag_days": 0
+  },
+  "economics_included": false,
+  "fingerprint": "297c228ae6e97a2a8a832345776ac98a435b2f1864830d9ab642e507e08727a8",
+  "counts": {
+    "train": 4368,
+    "validation": 651,
+    "test": 651
+  },
+  "weekly_rows": 8778,
+  "splits": {
+    "train": {
+      "start": "2014-12-28",
+      "end": "2024-05-19"
+    },
+    "validation": {
+      "start": "2024-05-26",
+      "end": "2025-03-09"
+    },
+    "test": {
+      "start": "2025-03-16",
+      "end": "2025-12-28"
+    }
+  },
+  "validation": "Passed shape, finite-value, chronology, exclusion, split, and transformation-parity checks",
+  "export_script_sha256": "8740491e70271064192251acc4cda8c30a536b02ac92a593ebf3d53d6c7d54e5",
+  "provenance": {
+    "config": {
+      "dataset_version": "demand-v2-provisional",
+      "sources": [
+        "data/trends_weekly_japan_by_category.csv",
+        "data/trends_weekly_korea_by_category.csv",
+        "data/USA_trends_weekly_by_category.csv"
+      ],
+      "metadata": "data/collection_metadata.json",
+      "economics": null,
+      "calendar": {
+        "date_label": "start",
+        "weekday": 6,
+        "timezone": "UTC",
+        "availability_lag_days": 0
+      },
+      "as_of": "2026-09-08T00:00:00Z"
+    },
+    "sources": {
+      "data/trends_weekly_japan_by_category.csv": "5ec03f0f4fff41714eeee5885399373bbe35318811674fb5f36cb168b9523442",
+      "data/trends_weekly_korea_by_category.csv": "38a30926b2ad05033579c8e532a3742cd961e6ab8499404072c1fcaf05b2127c",
+      "data/USA_trends_weekly_by_category.csv": "0e40be97a8e6899cbd5b71c0f773850712887671f226316f8c83a44038a92536",
+      "data/collection_metadata.json": null
+    },
+    "implementation": {
+      "__init__.py": "c0317efe1a2adebaa279ec4e8da7c407b1435cc58b564fa8fc000656bb63787c",
+      "__main__.py": "15b1cc4461891c226915dd25c1c5e99ac0ad2b5e635efe93dea366a424878104",
+      "analysis.py": "538e0460d4b6ebee0eeef09d18f89f336f7dc21a25de2de28c92b9c8648a8ba6",
+      "common.py": "421a18bfb801e8c14dd4aea9f42f626e30116d28f0066a797ab1b6b2bd8b5676",
+      "dataset.py": "d980fdc7f2eb2f22fb2a287216ec369a7f0fd5e86d893a56a52d206464bd7811",
+      "economics.py": "3188578392dccdf095f321f2276aebf6950513f8d292822cf537cc066e91b49f"
+    }
+  }
+}

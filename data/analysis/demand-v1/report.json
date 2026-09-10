@@ -1,0 +1,45 @@
+{
+  "category": "coastal_island",
+  "year": 2023,
+  "expected_weeks_per_country": 53,
+  "missing_weeks": {
+    "JP": 0,
+    "KR": 0,
+    "US": 0
+  },
+  "cross_market_comparable": false,
+  "blocking_issues": [
+    "Collection metadata missing; calendar and provenance are unverified."
+  ],
+  "review_reasons": [],
+  "leaders": null,
+  "interpretation": "Retrospective search-interest description, not visitor demand, a structural-shift test, or a production recommendation.",
+  "monthly_assignment": "Underlying week-start month; complete weekly observations are not prorated.",
+  "within_country_changes": {
+    "JP": {
+      "annual_mean": 60.39169811320753,
+      "weekly_range": 32.11,
+      "monthly_increases": 4,
+      "monthly_decreases": 7
+    },
+    "KR": {
+      "annual_mean": 42.921886792452824,
+      "weekly_range": 23.0,
+      "monthly_increases": 3,
+      "monthly_decreases": 8
+    },
+    "US": {
+      "annual_mean": 63.494339622641505,
+      "weekly_range": 39.3,
+      "monthly_increases": 8,
+      "monthly_decreases": 3
+    }
+  },
+  "fingerprint": "29c9dceebd7335aca2b343e63b2661e0fddd2cb8acf60b594ccdac0496f09feb",
+  "audit": {
+    "exact_duplicates_removed": 0,
+    "pandemic_category_rows_excluded": 3297,
+    "incomplete_category_rows_excluded": 0,
+    "invalid_category_values": 0
+  }
+}

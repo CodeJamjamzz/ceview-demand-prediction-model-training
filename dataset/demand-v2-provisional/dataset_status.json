@@ -1,0 +1,49 @@
+{
+  "dataset_version": "demand-v2-provisional",
+  "status": "provisional",
+  "diagnostic_approval": "pending",
+  "purpose": "User-requested dataset assembly with documented collection assumptions",
+  "confirmed_by_user": {
+    "source": "Google Trends",
+    "search_type": "Web Search",
+    "subject": "tourism destinations",
+    "same_category_filter": true
+  },
+  "unverified": [
+    "exact queries and category aggregation",
+    "category definition version",
+    "collection dates and historical availability",
+    "weekly boundary semantics",
+    "cross-country normalization compatibility"
+  ],
+  "calendar_assumptions": {
+    "date_label": "start",
+    "weekday": 6,
+    "timezone": "UTC",
+    "availability_lag_days": 0
+  },
+  "economics_included": false,
+  "fingerprint": "297c228ae6e97a2a8a832345776ac98a435b2f1864830d9ab642e507e08727a8",
+  "counts": {
+    "train": 4368,
+    "validation": 651,
+    "test": 651
+  },
+  "weekly_rows": 8778,
+  "splits": {
+    "train": {
+      "start": "2014-12-28",
+      "end": "2024-05-19"
+    },
+    "validation": {
+      "start": "2024-05-26",
+      "end": "2025-03-09"
+    },
+    "test": {
+      "start": "2025-03-16",
+      "end": "2025-12-28"
+    }
+  },
+  "validation": "Passed shape, finite-value, chronology, exclusion, split, and transformation-parity checks",
+  "export_script_sha256": "8740491e70271064192251acc4cda8c30a536b02ac92a593ebf3d53d6c7d54e5"
+}
