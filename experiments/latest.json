@@ -6,5 +6,5 @@
   "metrics": {},
   "comparison_to_previous_best": "",
   "trained_on": "",
-  "next_action": "Colab/W&B workflow and A/B/C models are implemented. Add the W&B key to .env, close dataset review requirements, and configure Colab before real-data baseline/training/final-test execution."
+  "next_action": "Approved protocol forecasting-v3-approved.json generated and notebook updated. Ready for Colab GPU execution of Experiment A."
 }
