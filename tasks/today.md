@@ -18,3 +18,4 @@
 - [ ] Add the W&B key to local .env and verify online logging and Drive persistence in the approved Colab run.
 
 - [x] Run one selected experiment per Colab session, defaulting to A; retain prior results and defer final comparison/testing until A/B/C are complete.
+- [x] Prepare the provisional Philippines regional dataset and Colab training workflow with review gates (commit).

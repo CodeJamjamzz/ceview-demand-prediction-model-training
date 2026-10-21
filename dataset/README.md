@@ -44,6 +44,14 @@ The dataset files are available, but the version remains provisional. Sunday-sta
 
 Existing export records report successful shape, finite-value, chronology, split, pandemic-exclusion, and transformation-parity checks. See the [dataset review](../docs/data.md#dataset-assumptions-and-provenance-review) for evidence requirements and the [preprocessing contract](../docs/preprocessing.md) for build rules.
 
+## Philippines regions
+
+`philippines-regions-v1/` is generated locally from the user-provided files in `data_regions/` by running `python -m model.preprocessing.build_regions`. It contains `core/train.npz`, `core/validation.npz`, and `core/test.npz` with the same 52-week, three-feature, 12-week array shapes used by the forecaster, plus a window manifest and `dataset_status.json`.
+
+This is a separate provisional dataset, not a replacement for `demand-v2-provisional`. It uses the regional identity list in its metadata in place of the frozen country vocabulary. The competing NCR and Metro Manila files are excluded because their values conflict. Missing observations remain missing and exclude affected windows. The builder excludes weeks overlapping 2020-2022 and assigns complete targets to chronological 80/10/10 partitions. The test partition is reserved for one final evaluation after model selection.
+
+The regional dataset is ignored by Git along with generated datasets. The local ZIP and extracted source files are also not committed. Provenance, collection compatibility, historical availability, and data-owner permissions remain unverified, so the project training preflight must not be bypassed. The existing approved protocol still points to the three-country dataset; regional training needs a separately reviewed protocol revision.
+
 On September 10, 2026, the complete version directory moved from `data/processed/demand-v2-provisional/` to `dataset/demand-v2-provisional/`. SHA-256 checks confirmed all 13 moved files remained byte-for-byte unchanged, including the original version README and status records. This was a relocation, not regeneration, approval, or a new dataset version.
 
 The archived one-off exporter at `artifacts/build_provisional_dataset.py` retains its original path and checksum history. Do not rerun it to relocate or overwrite this version. The normal approved build now writes to `dataset/<dataset_version>/`; preprocessing metadata remains in `artifacts/<dataset_version>/`.
