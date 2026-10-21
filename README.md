@@ -10,7 +10,7 @@ The initial target is the weekly Google Trends `trend_index` for each of seven C
 - `model/`: preprocessing, shared components, A/B/C architectures, metrics, and protocol verification.
 - `training/`: Colab notebook, training engine, W&B logging, and experiment orchestration.
 - `data/`: local raw sources and preprocessing diagnostics, ignored by Git.
-- `dataset/`: prepared versioned datasets, including cleaned tables and training/validation/test arrays; dataset files remain ignored by Git. See the [dataset information](dataset/README.md).
+- `dataset/`: prepared versioned datasets. The reviewed Philippines regional training package is included on the Colab training branch; other local dataset exports remain ignored by Git. See the [dataset information](dataset/README.md).
 - `experiments/`: lightweight experiment status and append-only history.
 - `tasks/`: active scoped work.
 - `notes/`: temporary session context.

@@ -4,7 +4,7 @@ Open [forecasting_colab.ipynb](forecasting_colab.ipynb) in Google Colab and sele
 
 ## Philippines regional dataset
 
-Open [forecasting_regions_colab.ipynb](forecasting_regions_colab.ipynb) to run the same baselines and A/B/C workflow using the 16-region dataset. It clones the project into `/content`, uses Colab-local outputs, runs all three architectures in one session, and downloads a model ZIP after comparison. Add `GITHUB_TOKEN` and `WANDB_API_KEY` to Colab Secrets. The generated `dataset/philippines-regions-v1/` directory is ignored by Git and must be copied into the checkout in Colab. The regional approved protocol inherits the international collection process; its region-specific diagnostic and identity mapping are recorded in [regional-data-review.md](../docs/regional-data-review.md). The model forecasts within-region Google Trends interest and does not rank regional index levels. The original notebook and three-country protocol remain unchanged.
+Open [forecasting_regions_colab.ipynb](forecasting_regions_colab.ipynb) to run the same baselines and A/B/C workflow using the 16-region dataset. It clones the project into `/content`, uses Colab-local outputs, runs all three architectures in one session, and downloads a model ZIP after comparison. Add `GITHUB_TOKEN` and `WANDB_API_KEY` to Colab Secrets. The reviewed `dataset/philippines-regions-v1/` package is included on the training branch, so the notebook clone or update provides it automatically; no manual dataset copy is needed. The regional approved protocol inherits the international collection process; its region-specific diagnostic and identity mapping are recorded in [regional-data-review.md](../docs/regional-data-review.md). The model forecasts within-region Google Trends interest and does not rank regional index levels. The original notebook and three-country protocol remain unchanged.
 
 ## Setup
 
@@ -14,7 +14,7 @@ Open [forecasting_regions_colab.ipynb](forecasting_regions_colab.ipynb) to run t
 4. Keep .env private and out of Git. The notebook reads it without printing the key. W&B config and artifacts use explicit fields/files, never the entire environment or project folder.
 5. Keep outputs at the default MyDrive/CeviewTraining, or set OUTPUT_ROOT to another persistent Drive folder. Keep that location across reruns.
 6. Set EXPERIMENT to "A" for your first session. Select "B" tomorrow and "C" in a later session, using the same project, protocol, output folder, and compatible runtime. Each selection runs only that experiment with its three seeds.
-7. For the international notebook, complete the dataset review requirements below. For the regional notebook, copy the approved regional dataset into the checkout. Then select **Runtime > Run all**.
+7. For the international notebook, complete the dataset review requirements below. For the regional notebook, use the approved training branch, which includes the regional dataset. Then select **Runtime > Run all**.
 
 Dependencies install from [requirements.txt](requirements.txt). If packages were already imported before installation and preflight reports a mismatch, restart the runtime and run all cells again.
 
