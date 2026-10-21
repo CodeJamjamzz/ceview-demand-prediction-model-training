@@ -1,0 +1,233 @@
+{
+  "version": "philippines-regions-v1",
+  "status": "provisional, not approved for training or external upload",
+  "source_zip_sha256": "1615f99bd9942ed3518b2f7f330a1cb815ae65730f7da8b89dd887b1440fc191",
+  "source_csv_sha256": {
+    "trends_weekly_barmm_by_category.csv": "070c7256144169e0fb4aa023c1ed5665e0eac9acc6d41fa90abe337a60a04c92",
+    "trends_weekly_bicol_by_category (1).csv": "9d0811ef2298944c9334d1d5ed5d27a88227f95440c69ecaff7a66fe3bb1a0c9",
+    "trends_weekly_cagayan_valley_by_category.csv": "a42ddf5ce69f16be6e1d7c06cc8deebdb3e4e4acc154a01ab911efee3ea07e5d",
+    "trends_weekly_calabarzon_by_category.csv": "05ff7bd6d7e11ee9099c6e17a9a62061f054f97c7b085ba93934dc3cd2274e4b",
+    "trends_weekly_CAR_by_category.csv": "02c51189ef258694906252fa9a1376500a6df3a93e030c9a44e4818864449976",
+    "trends_weekly_caraga_by_category.csv": "0994e612a8f8110fbee811f192e125a530fc733d31114ab6befe971dadd3d44c",
+    "trends_weekly_central-visayas_by_category.csv": "6197f02430751147ca54d36d79d403944d1fa7fc7ceb6664ca25245a53e4537a",
+    "trends_weekly_central_luzon_by_category.csv": "d16e4a01323662a357368c27bc15bec92d3393dcddbd8269f17ff618ae6ac1ff",
+    "trends_weekly_davao_by_category.csv": "ca51b1e8c97fa4b5978e5634a855cc217902956f8972b235a43bb5487a1aa31e",
+    "trends_weekly_eastern_visayas_by_category.csv": "951bd452ca6db1205a6acb0f0308f2f22701ebccf11c47c8cf4a77fce06a2580",
+    "trends_weekly_ilocos_by_category (1).csv": "2d1f8409bee20469db2bce32fb321239c0955a555996bf891de5593ad3c7cfab",
+    "trends_weekly_mimaropa_by_category.csv": "59c62397c807aa66524e4cea7ef5399a9c57eede0b15f66ea57b51d5b9592b63",
+    "trends_weekly_northern_mindanao_by_category.csv": "43299ee987fc05af9177683e08198d6ade72c32ff071312cd3be0b3f45206bc6",
+    "trends_weekly_soccsksargen_by_category.csv": "e97ddf236a09915a648f7e44d570aec1a02edde7f0470373c5082ed15902e6bc",
+    "trends_weekly_western_visayas_by_category.csv": "dcc0f4e7ef094762479bb2b576443db1547741d944d61dc3600363165e4dfef3",
+    "trends_weekly_zamboanga_by_category.csv": "8b565e987312277568a313460b5929bd909d178d36b84feae2d53edcaf9e46ff"
+  },
+  "source_files_excluded": {
+    "trends_weekly_metro_manila_by_category.csv": "Conflicting alternative NCR/Metro Manila export; excluded pending source selection.",
+    "trends_weekly_ncr_by_category.csv": "Conflicting alternative NCR/Metro Manila export; excluded pending source selection."
+  },
+  "regions": [
+    "barmm",
+    "bicol",
+    "cagayan_valley",
+    "calabarzon",
+    "car",
+    "caraga",
+    "central_luzon",
+    "central_visayas",
+    "davao",
+    "eastern_visayas",
+    "ilocos",
+    "mimaropa",
+    "northern_mindanao",
+    "soccsksargen",
+    "western_visayas",
+    "zamboanga"
+  ],
+  "categories": [
+    "accommodation_staycation",
+    "adventure_nature",
+    "coastal_island",
+    "culinary_gastronomy",
+    "cultural_heritage",
+    "theme_parks_entertainment",
+    "urban_city"
+  ],
+  "lookback": 52,
+  "horizon": 12,
+  "features": [
+    "trend_scaled",
+    "week_sin",
+    "week_cos"
+  ],
+  "target_scale": "trend index / 100",
+  "calendar_assumptions": {
+    "date_label": "Sunday-start week",
+    "timezone": "unverified",
+    "availability_lag": "unverified"
+  },
+  "excluded_interval": [
+    "2020-01-01",
+    "2023-01-01"
+  ],
+  "split_boundaries": {
+    "train": {
+      "start": "2014-12-28",
+      "end": "2024-05-19"
+    },
+    "validation": {
+      "start": "2024-05-26",
+      "end": "2025-03-09"
+    },
+    "test": {
+      "start": "2025-03-16",
+      "end": "2025-12-28"
+    }
+  },
+  "examples": {
+    "train": 23245,
+    "validation": 3462,
+    "test": 3441
+  },
+  "excluded_window_counts": {
+    "pandemic_gap": 7056,
+    "split_crossing": 2464,
+    "missing_history": 70,
+    "missing_target": 22
+  },
+  "source_quality": {
+    "barmm": {
+      "source_file": "trends_weekly_barmm_by_category.csv",
+      "source_market_value": "PH-14",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "bicol": {
+      "source_file": "trends_weekly_bicol_by_category (1).csv",
+      "source_market_value": "PH",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "cagayan_valley": {
+      "source_file": "trends_weekly_cagayan_valley_by_category.csv",
+      "source_market_value": "PH-02",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "calabarzon": {
+      "source_file": "trends_weekly_calabarzon_by_category.csv",
+      "source_market_value": "PH-40",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "car": {
+      "source_file": "trends_weekly_CAR_by_category.csv",
+      "source_market_value": "Cordillera Administrative Region",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 52
+    },
+    "caraga": {
+      "source_file": "trends_weekly_caraga_by_category.csv",
+      "source_market_value": "Caraga",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "central_visayas": {
+      "source_file": "trends_weekly_central-visayas_by_category.csv",
+      "source_market_value": "PH-07",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "central_luzon": {
+      "source_file": "trends_weekly_central_luzon_by_category.csv",
+      "source_market_value": "PH-03",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "davao": {
+      "source_file": "trends_weekly_davao_by_category.csv",
+      "source_market_value": "PH-11",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "eastern_visayas": {
+      "source_file": "trends_weekly_eastern_visayas_by_category.csv",
+      "source_market_value": "PH-08",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "ilocos": {
+      "source_file": "trends_weekly_ilocos_by_category (1).csv",
+      "source_market_value": "Ilocos Region",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "mimaropa": {
+      "source_file": "trends_weekly_mimaropa_by_category.csv",
+      "source_market_value": "MIMAROPA",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "northern_mindanao": {
+      "source_file": "trends_weekly_northern_mindanao_by_category.csv",
+      "source_market_value": "Northern Mindanao",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "soccsksargen": {
+      "source_file": "trends_weekly_soccsksargen_by_category.csv",
+      "source_market_value": "PH-12",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "western_visayas": {
+      "source_file": "trends_weekly_western_visayas_by_category.csv",
+      "source_market_value": "PH-06",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 0
+    },
+    "zamboanga": {
+      "source_file": "trends_weekly_zamboanga_by_category.csv",
+      "source_market_value": "Zamboanga Peninsula",
+      "rows": 575,
+      "first_week": "2014-12-28",
+      "last_week": "2025-12-28",
+      "missing_category_values": 103
+    }
+  },
+  "unverified": [
+    "Google Trends query and collection provenance",
+    "category definitions and consistency",
+    "historical availability and weekly timezone/boundaries",
+    "within-series normalization consistency",
+    "data-owner permissions, privacy, and retention"
+  ]
+}
