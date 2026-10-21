@@ -1,0 +1,306 @@
+{
+  "protocol_version": "forecasting-regions-v2-approved",
+  "frozen_on": "2026-10-22",
+  "scope": "Approved A/B/C comparison for 16 Philippine regions using the same Google Trends collection process as forecasting-v3-approved; forecasts represent within-region relative search interest and do not rank regions by search volume.",
+  "dataset": {
+    "version": "philippines-regions-v1",
+    "path": "dataset/philippines-regions-v1",
+    "export_fingerprint": "1615f99bd9942ed3518b2f7f330a1cb815ae65730f7da8b89dd887b1440fc191",
+    "status": "approved",
+    "diagnostic_approval": "approved",
+    "lookback": 52,
+    "horizon": 12,
+    "features": [
+      "trend_scaled",
+      "week_sin",
+      "week_cos"
+    ],
+    "numeric_dtype": "float32",
+    "identity_dtype": "int64",
+    "target_inverse_scale": 100,
+    "vocabulary": {
+      "market": [
+        "barmm",
+        "bicol",
+        "cagayan_valley",
+        "calabarzon",
+        "car",
+        "caraga",
+        "central_luzon",
+        "central_visayas",
+        "davao",
+        "eastern_visayas",
+        "ilocos",
+        "mimaropa",
+        "northern_mindanao",
+        "soccsksargen",
+        "western_visayas",
+        "zamboanga"
+      ],
+      "category": [
+        "accommodation_staycation",
+        "adventure_nature",
+        "coastal_island",
+        "culinary_gastronomy",
+        "cultural_heritage",
+        "theme_parks_entertainment",
+        "urban_city"
+      ]
+    },
+    "vocabulary_evidence": "All 16 selected source CSV checksums match dataset_status.json; 16 region and 7 category vocabularies match the train and validation NPZ identity arrays and window manifest. The test NPZ was checksum-verified but not loaded for this review.",
+    "original_metadata_verified": true,
+    "counts": {
+      "train": 23245,
+      "validation": 3462,
+      "test": 3441
+    },
+    "weekly_rows": 46816,
+    "splits": {
+      "train": {
+        "start": "2014-12-28",
+        "end": "2024-05-19"
+      },
+      "validation": {
+        "start": "2024-05-26",
+        "end": "2025-03-09"
+      },
+      "test": {
+        "start": "2025-03-16",
+        "end": "2025-12-28"
+      }
+    },
+    "calendar": {
+      "date_label": "Sunday-start week",
+      "timezone": "unverified",
+      "availability_lag": "unverified"
+    },
+    "excluded_interval": [
+      "2020-01-01",
+      "2023-01-01"
+    ],
+    "missingness": "No imputation; only complete consecutive histories and targets are retained.",
+    "unverified": [
+      "Exact Google Trends query strings, topic IDs, and aggregation steps are not embedded in the exports; the data owner confirms the same collection process as the approved international protocol.",
+      "The exports do not contain collection timestamps or historical-vintage/revision records; Sunday-start UTC preprocessing is inherited from the approved international protocol.",
+      "Google Trends index levels may be normalized separately by region; this experiment forecasts within-region series and makes no cross-region level or ranking claim."
+    ],
+    "files_sha256": {
+      "dataset/philippines-regions-v1/core/train.npz": "195bafd033db4c9b4088004bbdeae3f432e0b5aa0598b6574beb1de2cca9083d",
+      "dataset/philippines-regions-v1/core/validation.npz": "15b4a09517fdc9b44d89083600dccd78ac83e2eeab74bd45b7c611e0f877c888",
+      "dataset/philippines-regions-v1/core/test.npz": "c3e676502933ea9f3d2d507a7b8ffe99a1fb8e31cd3876c76f8e1a89fd9e4f29",
+      "dataset/philippines-regions-v1/core/window_manifest.csv": "4b726eda9c77502252c72ad601dc8df4c1e04e3105cac388f9cf3251b1b2f8ad",
+      "dataset/philippines-regions-v1/dataset_status.json": "8df0e4b44a0d1eb33415a13da3f1d1d904239db35d51ff1ad83f2a866adc736a"
+    },
+    "collection_provenance_verified": true,
+    "data_permissions_confirmed": true,
+    "identity_names": {
+      "market": "region",
+      "category": "category"
+    },
+    "review_evidence": {
+      "reference_protocol": "forecasting-v3-approved",
+      "reference_protocol_sha256": "02eb0fab2e7e41fe2e0fc052c66b33cbcc6302d075cdd8ea19c71fc97e10ceb4",
+      "collection_scope_confirmation": "The data owner confirmed that the regional CSVs use the same Google Trends collection process as the approved international data; only the geographic location changed.",
+      "diagnostic": {
+        "fixed_category": "coastal_island",
+        "year": 2023,
+        "selected_regions": 16,
+        "expected_weekly_positions_per_region": 53,
+        "observed_weekly_positions_per_region": 53,
+        "date_range": [
+          "2023-01-01",
+          "2023-12-31"
+        ],
+        "duplicate_week_labels": 0,
+        "invalid_or_out_of_range_values": 0,
+        "decision": "Approved for within-region forecasting; no cross-region level comparison."
+      },
+      "preprocessing_metadata": "Verified the 16-region/7-category vocabulary, train and validation identity arrays against window_manifest.csv, and all five frozen dataset file checksums without loading the held-out test array."
+    }
+  },
+  "architecture": {
+    "shared": {
+      "identity_embedding_dim": 4,
+      "width": 64,
+      "head_hidden": 32,
+      "dropout": 0.1,
+      "layer_norm_eps": 1e-05,
+      "attention_heads": 2,
+      "feedforward_hidden": 128,
+      "pooling": "mean_over_time",
+      "head_activation": "relu",
+      "feedforward_activation": "gelu_exact",
+      "output_activation": "linear",
+      "bias": true
+    },
+    "A": {
+      "name": "bilstm",
+      "recurrent_layers": 1,
+      "hidden_per_direction": 32,
+      "bidirectional": true,
+      "recurrent_dropout": 0.0,
+      "sequence_output": "layer_norm_then_dropout"
+    },
+    "B": {
+      "name": "transformer",
+      "projection": [
+        11,
+        64
+      ],
+      "learned_positions": 52,
+      "encoder_blocks": 1,
+      "final_layer_norm": true
+    },
+    "C": {
+      "name": "bilstm_transformer",
+      "recurrent_layers": 1,
+      "hidden_per_direction": 32,
+      "bidirectional": true,
+      "recurrent_dropout": 0.0,
+      "learned_positions": 52,
+      "encoder_blocks": 1,
+      "final_layer_norm": true
+    },
+    "causal_mask": false,
+    "teacher_forcing": false,
+    "initialization": "Pinned PyTorch module defaults; no pretrained weights; reset seed before construction"
+  },
+  "training": {
+    "seeds": [
+      42,
+      123,
+      2026
+    ],
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "amsgrad": false,
+    "weight_decay": 0.0001,
+    "weight_decay_exclusions": [
+      "all_biases",
+      "all_LayerNorm_parameters"
+    ],
+    "loss": "MAE_mean_examples_and_12_horizons_scaled_targets",
+    "batch_size": 32,
+    "max_epochs": 100,
+    "gradient_clip_norm": 1.0,
+    "gradient_clip_norm_type": 2.0,
+    "scheduler": null,
+    "mixed_precision": false,
+    "early_stopping": {
+      "monitor": "validation_mae_scaled",
+      "direction": "min",
+      "patience": 12,
+      "min_delta": 0.0001,
+      "reset": "current < last_significant_best - min_delta"
+    },
+    "checkpoint": "Save every strictly lower validation MAE, keep earliest exact tie, restore lowest before reporting",
+    "loader": {
+      "shuffle_train_windows": true,
+      "shuffle_validation": false,
+      "shuffle_test": false,
+      "drop_last": false,
+      "num_workers": 0,
+      "seed": "current_run_seed",
+      "split_policy": "existing_partitions_unchanged"
+    },
+    "epoch_aggregation": "Sum absolute errors divided by total examples times 12, not unweighted batch means",
+    "randomness": {
+      "seed_python_numpy_torch_loader": true,
+      "deterministic_algorithms": true,
+      "cudnn_benchmark": false,
+      "allow_tf32": false,
+      "cublas_workspace_config": ":4096:8"
+    }
+  },
+  "metrics": {
+    "version": "raw-index-v1",
+    "inputs": "scaled [examples,12] targets and raw model predictions",
+    "prediction_treatment": "multiply_by_100_no_clamping",
+    "mae": "mean(abs(predicted-actual))",
+    "rmse": "sqrt(mean((predicted-actual)^2))",
+    "smape_percent": "mean(200*abs(predicted-actual)/(abs(actual)+abs(predicted))); zero/zero contributes 0",
+    "mape_min_abs_target_index_points": 1.0,
+    "mape_percent": "mean(100*abs(predicted-actual)/abs(actual)) over abs(actual)>=1; null if none",
+    "mape_coverage": "included_values/total_values; always report count and coverage",
+    "invalid_values": "Reject empty, nonfinite, mismatched arrays or targets outside [0,1]; never silently drop",
+    "aggregation": "overall pools all example-horizon values; per_horizon reports 12 scores; mean_of_horizon_metrics reports arithmetic mean (RMSE differs from pooled RMSE)",
+    "groups": [
+      "region",
+      "category",
+      "region/category"
+    ],
+    "group_weighting": "Equal weight per example-horizon inside each group; no averaging group scores for overall",
+    "demand_means": "Average each example over weeks 1-4 or 1-12 first, then calculate metrics; same MAPE threshold on averaged targets",
+    "seed_summary": "Arithmetic mean and sample standard deviation (ddof=1) over all three complete seeds",
+    "deferred": [
+      "directional_accuracy",
+      "category_alert_precision_recall",
+      "market_ranking",
+      "formal_significance_tests"
+    ]
+  },
+  "selection": {
+    "partition": "validation_only",
+    "primary": "mean_validation_MAE_index_points_across_three_seeds",
+    "architecture_ties": [
+      "lower_mean_smape",
+      "fewer_parameters",
+      "A_then_B_then_C"
+    ],
+    "eligibility": "All three seeds complete; mean validation MAE strictly below best required baseline; otherwise no neural champion",
+    "final_seed": 42,
+    "final_checkpoint": "Lowest validation MAE checkpoint of seed 42 for selected architecture",
+    "test_policy": "Evaluate selected artifact once after recording decision; no seed or configuration selection on test",
+    "baseline_names": [
+      "last_value",
+      "moving_average_7",
+      "seasonal_naive_52"
+    ],
+    "initial_tuning_budget": "One frozen configuration per architecture, three seeds each; no search"
+  },
+  "environment": {
+    "framework": "torch==2.11.0",
+    "numpy": "2.2.1",
+    "pandas": "2.2.3",
+    "pyarrow": "23.0.1",
+    "local_validation": {
+      "python": "3.13.6",
+      "torch_build": "2.11.0+cpu",
+      "device": "cpu"
+    },
+    "external": "Google Colab GPU",
+    "tracker": "Weights & Biases online; JSON/CSV mirrored to Google Drive",
+    "artifact_destination": "Google Drive",
+    "external_runtime_status": "Not provisioned; record exact Python/CUDA/cuDNN/GPU/OS and use same environment for all comparison runs",
+    "wandb": "0.28.2",
+    "python-dotenv": "1.2.1"
+  },
+  "revision_of": {
+    "protocol_version": "forecasting-regions-v1",
+    "protocol_sha256": "5f81be5341efc2c56a5575884422b7dbe148907c70fceac26a34080a6e781022"
+  },
+  "revision_reason": "Regional revision based on the data owner confirmation that only geography changed from the approved Google Trends collection process; recorded a passing fixed 2023 regional diagnostic and verified the regional preprocessing identities and frozen files.",
+  "execution": {
+    "completed_runs": "Reload verified checkpoints and results on rerun",
+    "interrupted_training": "Start a fresh same-seed attempt; preserve prior attempt files",
+    "final_test": "Claim the frozen test archive once in a persistent Drive ledger before loading targets; reuse completed report",
+    "wandb_artifacts": [
+      "best_checkpoint",
+      "epoch_metrics",
+      "train_validation_metrics",
+      "frozen_protocol",
+      "final_test_metrics"
+    ],
+    "inference_timing": "One warmed full-validation pass including batching and transfer, divided by examples, synchronized on GPU"
+  },
+  "protocol_sha256": "931452f5e97f48b124c3769b4767752c038da7fad5d0d033273fd3261a3b76e1",
+  "collection_reference": {
+    "protocol_version": "forecasting-v3-approved",
+    "protocol_sha256": "02eb0fab2e7e41fe2e0fc052c66b33cbcc6302d075cdd8ea19c71fc97e10ceb4"
+  }
+}

@@ -4,7 +4,7 @@ Open [forecasting_colab.ipynb](forecasting_colab.ipynb) in Google Colab and sele
 
 ## Philippines regional dataset
 
-Open [forecasting_regions_colab.ipynb](forecasting_regions_colab.ipynb) to run the same baselines and A/B/C workflow using the 16-region dataset. It clones the project into `/content`, uses Colab-local outputs, runs all three architectures in one session, and downloads a model ZIP after comparison. Add `WANDB_API_KEY` to Colab Secrets. The generated `dataset/philippines-regions-v1/` directory is ignored by Git and must be copied into the checkout in Colab. This regional protocol is provisional and preflight intentionally blocks training until provenance, the fixed diagnostic review, owner permissions, and a reviewed protocol revision are complete. The original notebook and three-country protocol remain unchanged.
+Open [forecasting_regions_colab.ipynb](forecasting_regions_colab.ipynb) to run the same baselines and A/B/C workflow using the 16-region dataset. It clones the project into `/content`, uses Colab-local outputs, runs all three architectures in one session, and downloads a model ZIP after comparison. Add `GITHUB_TOKEN` and `WANDB_API_KEY` to Colab Secrets. The generated `dataset/philippines-regions-v1/` directory is ignored by Git and must be copied into the checkout in Colab. The regional approved protocol inherits the international collection process; its region-specific diagnostic and identity mapping are recorded in [regional-data-review.md](../docs/regional-data-review.md). The model forecasts within-region Google Trends interest and does not rank regional index levels. The original notebook and three-country protocol remain unchanged.
 
 ## Setup
 
@@ -14,7 +14,7 @@ Open [forecasting_regions_colab.ipynb](forecasting_regions_colab.ipynb) to run t
 4. Keep .env private and out of Git. The notebook reads it without printing the key. W&B config and artifacts use explicit fields/files, never the entire environment or project folder.
 5. Keep outputs at the default MyDrive/CeviewTraining, or set OUTPUT_ROOT to another persistent Drive folder. Keep that location across reruns.
 6. Set EXPERIMENT to "A" for your first session. Select "B" tomorrow and "C" in a later session, using the same project, protocol, output folder, and compatible runtime. Each selection runs only that experiment with its three seeds.
-7. Complete the existing dataset review requirements described below. Then select **Runtime > Run all**. Approve the normal Drive mount prompt when Colab requests access.
+7. For the international notebook, complete the dataset review requirements below. For the regional notebook, copy the approved regional dataset into the checkout. Then select **Runtime > Run all**.
 
 Dependencies install from [requirements.txt](requirements.txt). If packages were already imported before installation and preflight reports a mismatch, restart the runtime and run all cells again.
 
@@ -57,12 +57,8 @@ Protocol, runtime, or code changes cannot silently reuse an existing suite. Keep
 
 OUTPUT_ROOT/test-evaluations/<test-file-sha256>/ holds a persistent claim and final report. The claim is created before opening test targets. A rerun returns the existing report; a different selected artifact cannot claim that held-out set automatically. If the runtime stops after claiming test access but before saving the report, the workflow requires a ledger review and does not automatically retest. Do not delete or relocate this ledger to select candidates using test scores.
 
-## Current data-review blocker
+## Philippines regional protocol
 
-The existing dataset files are available, but their original metadata verification, diagnostic approval, collection provenance, and data-owner permissions remain unresolved. The notebook deliberately stops at preflight for the current provisional protocol.
-
-Close the evidence checklist in [docs/data.md](../docs/data.md#dataset-assumptions-and-provenance-review), verify the saved preprocessing metadata, and create a reviewed protocol revision bound to the approved files. That revision must record diagnostic_approval as approved, collection_provenance_verified as true, data_permissions_confirmed as true, and original_metadata_verified as true under dataset, with supporting evidence and appropriate file checksums. Do not merely flip the flags on the provisional protocol; its checksum and review history must remain intact. Set the notebook's PROTOCOL_PATH to the reviewed revision.
-
-This implementation does not grant those approvals or run real-data training. Local verification uses synthetic data and mocked network logging.
+The regional notebook uses `experiments/forecasting-regions-v2-approved.json`, a revision of the provisional regional protocol. It inherits the collection process and Colab/W&B use approved in `forecasting-v3-approved`, based on the data owner's confirmation that the regional exports differ only by geographic location. The regional diagnostic and preprocessing identity review are recorded in [regional-data-review.md](../docs/regional-data-review.md). Keep the `forecasting-regions-v1` protocol as historical record.
 
 W&B documents [API-key environment variables](https://docs.wandb.ai/models/track/environment-variables) and [run initialization](https://docs.wandb.ai/models/ref/python/functions/init). See [Colab's FAQ](https://research.google.com/colaboratory/intl/en-GB/faq.html) for runtime and Drive behavior.
