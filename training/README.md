@@ -2,6 +2,10 @@
 
 Open [forecasting_colab.ipynb](forecasting_colab.ipynb) in Google Colab and select a GPU runtime. The notebook runs repository functions; it does not duplicate model or preprocessing code.
 
+## Philippines regional dataset
+
+Open [forecasting_regions_colab.ipynb](forecasting_regions_colab.ipynb) to run the same baselines and A/B/C workflow using the 16-region dataset. It clones the project into `/content`, uses Colab-local outputs, runs all three architectures in one session, and downloads a model ZIP after comparison. Add `WANDB_API_KEY` to Colab Secrets. The generated `dataset/philippines-regions-v1/` directory is ignored by Git and must be copied into the checkout in Colab. This regional protocol is provisional and preflight intentionally blocks training until provenance, the fixed diagnostic review, owner permissions, and a reviewed protocol revision are complete. The original notebook and three-country protocol remain unchanged.
+
 ## Setup
 
 1. Place the project at MyDrive/Ceview_Transformer in your Google Drive, or change PROJECT_ROOT in the notebook.

@@ -1,5 +1,7 @@
 # Local data and generated datasets
 data/
+data_regions/
+data_regions.zip
 dataset/*
 !dataset/.gitkeep
 !dataset/README.md

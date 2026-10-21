@@ -33,7 +33,7 @@ def log_report(run, prefix, report):
     columns = ["mae", "rmse", "smape_percent", "mape_percent", "mape_coverage"]
     horizons = [[i + 1] + [r[key] for key in columns] for i, r in enumerate(report["per_horizon"])]
     tables = {f"{prefix}/per_horizon": wandb.Table(columns=["horizon"] + columns, data=horizons)}
-    for group in ("market", "category", "series"):
+    for group in ("region", "market", "category", "series"):
         if f"by_{group}" in report:
             tables[f"{prefix}/by_{group}"] = wandb.Table(
                 columns=[group] + columns,

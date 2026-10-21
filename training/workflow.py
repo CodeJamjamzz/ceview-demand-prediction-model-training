@@ -237,12 +237,16 @@ def run_suite(root, protocol_path, output_root, device=None, *, experiment="A"):
     return suite
 
 
-def display_results(suite):
+def display_results(suite, protocol_path=None):
     """Notebook tables and figures use saved reports, never test arrays."""
     import matplotlib.pyplot as plt
     import pandas as pd
     from IPython.display import Markdown, display
+    from model.experiment import DEFAULT_PROTOCOL, load_protocol
     suite = Path(suite)
+    protocol = load_protocol(protocol_path or DEFAULT_PROTOCOL)
+    identity_names = protocol["dataset"].get(
+        "identity_names", {"market": "market", "category": "category"})
     baselines = read_json(suite / "baselines.json")
     decision = read_json(suite / "selection.json") if (suite / "selection.json").exists() else None
     display(Markdown("## Validation baselines"))
@@ -274,7 +278,7 @@ def display_results(suite):
     plt.close(fig)
     display(Markdown("## Detailed validation results"))
     metric_names = ("mae", "rmse", "smape_percent", "mape_percent", "mape_coverage")
-    for group in ("market", "category", "series"):
+    for group in (identity_names.get("market", "market"), "category", "series"):
         display(Markdown(f"### Validation by {group}"))
         display(pd.DataFrame([
             {"architecture": r["architecture"], "seed": r["seed"], group: name,
@@ -299,7 +303,7 @@ def display_results(suite):
         report = read_json(test_path)
         display(Markdown(f"## Final test: {decision['architecture']}, seed {decision['seed']}"))
         display(pd.DataFrame([report["overall"]]))
-        for group in ("market", "category", "series"):
+        for group in (identity_names.get("market", "market"), "category", "series"):
             display(Markdown(f"### Test by {group}"))
             display(pd.DataFrame({name: r["overall"] for name, r in report[f"by_{group}"].items()}).T)
         display(Markdown("### Demand-mean forecast errors"))

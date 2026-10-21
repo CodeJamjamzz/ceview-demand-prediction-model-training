@@ -64,6 +64,8 @@ def forecast_metrics(actual_scaled, predicted_scaled, *, market_id=None,
     threshold = protocol["metrics"]["mape_min_abs_target_index_points"]
     result = _report(actual, predicted, threshold)
     identities = {}
+    identity_names = protocol["dataset"].get(
+        "identity_names", {"market": "market", "category": "category"})
     for name, supplied in (("market", market_id), ("category", category_id)):
         if supplied is None:
             continue
@@ -73,7 +75,7 @@ def forecast_metrics(actual_scaled, predicted_scaled, *, market_id=None,
                 or ((ids < 0) | (ids >= len(vocabulary))).any()):
             raise ValueError(f"Invalid {name} IDs")
         identities[name] = ids
-        result[f"by_{name}"] = {
+        result[f"by_{identity_names.get(name, name)}"] = {
             vocabulary[index]: _report(actual[ids == index], predicted[ids == index], threshold)
             for index in np.unique(ids)
         }
@@ -83,6 +85,6 @@ def forecast_metrics(actual_scaled, predicted_scaled, *, market_id=None,
         result["by_series"] = {}
         for m, c in sorted(set(zip(market.tolist(), category.tolist()))):
             mask = (market == m) & (category == c)
-            key = f"{vocabulary['market'][m]}/{vocabulary['category'][c]}"
+            key = (f"{vocabulary['market'][m]}/{vocabulary['category'][c]}")
             result["by_series"][key] = _report(actual[mask], predicted[mask], threshold)
     return result
